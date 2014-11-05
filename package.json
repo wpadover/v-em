@@ -1,0 +1,23 @@
+{
+  "name": "v-em",
+  "version": "0.0.0",
+  "description": "Virtual Emrick: The NHL Game Report Play by Play Parser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wpadover/v-em.git"
+  },
+  "keywords": [
+    "NHL",
+    "hockey",
+    "play-by-play",
+    "stats"
+  ],
+  "author": "Will Padover <will.padover@gmail.com>",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "394639c91734c29bf694e362bffd451d549cb468"
+}
