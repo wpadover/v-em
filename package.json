@@ -19,5 +19,8 @@
   "author": "Will Padover <will.padover@gmail.com>",
   "license": "BSD",
   "readmeFilename": "README.md",
-  "gitHead": "394639c91734c29bf694e362bffd451d549cb468"
+  "gitHead": "394639c91734c29bf694e362bffd451d549cb468",
+  "dependencies": {
+    "cheerio": "~0.17.0"
+  }
 }
