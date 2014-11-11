@@ -22,6 +22,7 @@
   "gitHead": "394639c91734c29bf694e362bffd451d549cb468",
   "dependencies": {
     "cheerio": "~0.17.0",
-    "bluebird": "~2.3.10"
+    "bluebird": "~2.3.10",
+    "lodash": "~2.4.1"
   }
 }
