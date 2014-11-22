@@ -2,9 +2,12 @@
   "name": "v-em",
   "version": "0.0.0",
   "description": "Virtual Emrick: The NHL Game Report Play by Play Parser",
-  "main": "index.js",
+  "main": "./lib/docParse.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "parse": "./bin/parse"
   },
   "repository": {
     "type": "git",
@@ -24,6 +27,7 @@
     "cheerio": "~0.17.0",
     "bluebird": "~2.3.10",
     "lodash": "~2.4.1",
-    "request": "~2.48.0"
+    "request": "~2.48.0",
+    "commander": "~2.5.0"
   }
 }
