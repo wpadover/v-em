@@ -23,6 +23,7 @@
   "dependencies": {
     "cheerio": "~0.17.0",
     "bluebird": "~2.3.10",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "request": "~2.48.0"
   }
 }
