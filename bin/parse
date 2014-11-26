@@ -35,7 +35,7 @@ program
 	.return(0);
 } else {
 
-	return parser.parseGame(program.season, program.game)
+	return parser.parseRegularSeasonGame(program.season, program.game)
 	.then(function(results) {
 		console.log(JSON.stringify(results, null, 4));
 	})
