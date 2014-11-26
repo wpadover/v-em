@@ -2,19 +2,43 @@
 
 var program = require('commander');
 var parser = require('../lib/docParse');
+var Promise = require('bluebird');
+var fs = Promise.promisifyAll(require('fs'));
+
+var MAX_GAME_ID = 20;
 
 program
-  .option('-s, --season <season>', 'Season (e.g. 20132014')
-  .option('-g, --game <game>', 'Game ID (e.g. 0001)')
-  .parse(process.argv);
+.option('-s, --season <season>', 'Season (e.g. 20132014')
+	.option('-g, --game <game>', 'Game ID (e.g. 0001)')
+	.parse(process.argv);
 
-if ( !program.season ) {
-  console.log('Season is required');
-  return 1;
+	if ( !program.season ) {
+		console.log('Season is required');
+		return 1;
+	}
+
+	if ( !program.game ) {
+	//Season
+	var parserPromises = [];
+	for (var gameNum = 1; gameNum <= MAX_GAME_ID; ++gameNum) {
+		var p = parser.parseRegularSeasonGame(program.season, gameNum)
+						.then(function(results) {
+								return fs.writeFileAsync("game_log_" + program.season + "_" + gameNum + ".json", results);
+						})
+						.catch(function(e){
+								console.error('Failed to parse game: ' + gameNum + ' due to: ' + e);
+						});
+		parserPromises.push(p);
+	}
+
+	return Promise.all(parserPromises)
+	.return(0);
+} else {
+
+	return parser.parseGame(program.season, program.game)
+	.then(function(results) {
+		console.log(JSON.stringify(results, null, 4));
+	})
+	.return(0);
+
 }
-
-return parser.parseGame(program.season, program.game)
-.then(function(results) {
-  console.log(JSON.stringify(results, null, 4));
-})
-.return(0);
