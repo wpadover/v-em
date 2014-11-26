@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var parser = require('../lib/docParse');
+
+program
+  .option('-s, --season <season>', 'Season (e.g. 20132014')
+  .option('-g, --game <game>', 'Game ID (e.g. 0001)')
+  .parse(process.argv);
+
+if ( !program.season ) {
+  console.log('Season is required');
+  return 1;
+}
+
+return parser.parseGame(program.season, program.game)
+.then(function(results) {
+  console.log(JSON.stringify(results, null, 4));
+})
+.return(0);
