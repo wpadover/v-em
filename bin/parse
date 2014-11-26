@@ -9,36 +9,37 @@ var MAX_GAME_ID = 20;
 
 program
 .option('-s, --season <season>', 'Season (e.g. 20132014')
-	.option('-g, --game <game>', 'Game ID (e.g. 0001)')
-	.parse(process.argv);
+.option('-g, --game <game>', 'Game ID (e.g. 0001)')
+.parse(process.argv);
 
-	if ( !program.season ) {
-		console.log('Season is required');
-		return 1;
-	}
+if ( !program.season ) {
+  console.log('Season is required');
+  return 1;
+}
 
-	if ( !program.game ) {
-	//Season
-	var parserPromises = [];
-	for (var gameNum = 1; gameNum <= MAX_GAME_ID; ++gameNum) {
-		var p = parser.parseRegularSeasonGame(program.season, gameNum)
-						.then(function(results) {
-								return fs.writeFileAsync("game_log_" + program.season + "_" + gameNum + ".json", results);
-						})
-						.catch(function(e){
-								console.error('Failed to parse game: ' + gameNum + ' due to: ' + e);
-						});
-		parserPromises.push(p);
-	}
+if ( !program.game ) {
+  //Season
+  var parserPromises = [];
+  for (var i = 1; i <= MAX_GAME_ID; ++i) {
+    (function(gameNum) {
+      var p = parser.parseRegularSeasonGame(program.season, gameNum)
+              .then(function(results) {
+              return fs.writeFileAsync("game_log_" + program.season + "_" + gameNum + ".json", results);
+              })
+              .catch(function(e){
+                console.error('Failed to parse game: ' + gameNum + ' due to: ' + e);
+              });
+      parserPromises.push(p);
+    })(i);
+  }
 
-	return Promise.all(parserPromises)
-	.return(0);
+  return Promise.all(parserPromises)
+  .return(0);
 } else {
 
-	return parser.parseRegularSeasonGame(program.season, program.game)
-	.then(function(results) {
-		console.log(JSON.stringify(results, null, 4));
-	})
-	.return(0);
-
+  return parser.parseRegularSeasonGame(program.season, program.game)
+  .then(function(results) {
+    console.log(JSON.stringify(results, null, 4));
+  })
+  .return(0);
 }
