@@ -24,7 +24,7 @@ if ( !program.game ) {
     (function(gameNum) {
       var p = parser.parseRegularSeasonGame(program.season, gameNum)
               .then(function(results) {
-              return fs.writeFileAsync("game_log_" + program.season + "_" + gameNum + ".json", results);
+                return fs.writeFileAsync("game_log_" + program.season + "_" + gameNum + ".json", JSON.stringify(results, null, 4));
               })
               .catch(function(e){
                 console.error('Failed to parse game: ' + gameNum + ' due to: ' + e);
